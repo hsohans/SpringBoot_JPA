@@ -26,5 +26,7 @@ replay_pid*
 # production
 /build
 .gradle/
+.gradle
+.idea
 
 previous-compilation-data.bin
