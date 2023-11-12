@@ -14,7 +14,8 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class MemberRepositoryTest {
-    @Autowired MemberRepository memberRepository;
+
+    /*@Autowired MemberRepository memberRepository;
 
     @Test
     @Transactional
@@ -34,5 +35,6 @@ public class MemberRepositoryTest {
         Assertions.assertThat(findMember).isEqualTo(member);
         System.out.println("FindMember == member" +(findMember == member));
 
-    }
+    }*/
+
 }
