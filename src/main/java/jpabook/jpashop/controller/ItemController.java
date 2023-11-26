@@ -61,16 +61,26 @@ public class ItemController {
     }
 
     @PostMapping("items/{itemId}/edit")
-    public String updateItem(@PathVariable String itemId, @ModelAttribute("form") BookForm form){
-        Book book = new Book();
+    public String updateItem(@PathVariable Long itemId, @ModelAttribute("form") BookForm form){
+
+        // 준영속 엔티티는
+        // 준영속 엔티티라 JPA에서 관리하지 않음 -> DB 업데이트를 안함
+        // 변경 감지() 기능 사용 또는 병합 (Merge) 사용
+
+
+        // 컨트롤러에서는 모델 작성 X
+
+        /*Book book = new Book();
         book.setId(form.getId());
         book.setName(form.getName());
         book.setPrice(form.getPrice());
         book.setStockQuantity(form.getStockQuantity());
         book.setAuthor(form.getAuthor());
         book.setIsbn(form.getIsbn());
+        itemService.saveItem(book);*/
 
-        itemService.saveItem(book);
+        // 더 나은 방법 - 유지보수
+        itemService.updateItem(itemId, form.getName(), form.getPrice(), form.getStockQuantity());
         return "redirect:/items";
 
     }
