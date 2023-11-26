@@ -26,7 +26,7 @@ public class OrderRepository {
         return em.find(Order.class, id);
     }
 
-    public List<Order> findAll(OrderSearch orderSearch){
+    public List<Order> findAllByString(OrderSearch orderSearch){
 
         // jpql로 풀어서 쓸 경우, 너무 복잡하고 지저분함
         /**
@@ -54,7 +54,7 @@ public class OrderRepository {
             } else {
                 jpql += " and";
             }
-            jpql += " m.name like name";
+            jpql += " m.name like :name";
         }
 
         TypedQuery<Order> query = em.createQuery(jpql, Order.class).setMaxResults(1000);
