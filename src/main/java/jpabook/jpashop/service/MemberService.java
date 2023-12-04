@@ -68,4 +68,12 @@ public class MemberService {
     public Member findMember(Long memberId){
         return memberRepository.findOne(memberId);
     }
+
+    @Transactional
+    public void update(Long id, String name) {
+        // 커맨드랑 쿼리는 분리하기때문에 리턴값을 Member로 주지 않음
+        // 영속성 상태의 member 정보
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
 }
