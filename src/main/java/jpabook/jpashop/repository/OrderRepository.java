@@ -113,6 +113,14 @@ public class OrderRepository {
         return query.getResultList();
     }
 
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();
+    }
+
     /**
      * Query DSL 로 작성해야 함
      * 실무 : Spring Boot + JPA + Query DSL 꼭 사용

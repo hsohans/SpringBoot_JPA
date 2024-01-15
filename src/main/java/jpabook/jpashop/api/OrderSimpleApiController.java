@@ -60,6 +60,22 @@ public class OrderSimpleApiController {
     }
 
     /**
+     * 회원과 배송이 많아짐에 따라 느려질 수 있는 상황을 Fetch Join을 통해 해결
+     * SQL에 FETCH 명시하여 사용 (JPA에서만 사용할 수 있음)
+     * 100% FETCH를 정확하게 이해하고선 사용해야 함.
+     * @return
+     */
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+        List<SimpleOrderDto> result = orders.stream()
+                .map(o -> new SimpleOrderDto(o))
+                .collect(Collectors.toList());
+
+        return result;
+    }
+
+    /**
      * 두팀이 협의를 해서 아래 DTO를 명세함
      */
     @Data
