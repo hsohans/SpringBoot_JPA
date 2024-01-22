@@ -44,6 +44,26 @@ public class OrderApiController {
         return collect;
     }
 
+    /**
+     * 1 대 다 조회에서 콜렉션 fetch join 시 메모리에 페이징 쿼리를 추가 할 수 없음
+     * (중복데이터가 엄청 많아짐)
+     * @return
+     */
+    @GetMapping("/api/v3/orders")
+    public List<OrderDto> ordersV3() {
+        List<Order> orders = orderRepository.findAllWithItem();
+
+        for (Order order : orders) {
+            System.out.println("order ref = " + order + " id=" + order.getId());
+        }
+
+        List<OrderDto> collect = orders.stream()
+                .map(o -> new OrderDto(o))
+                .collect(Collectors.toList());
+
+        return collect;
+    }
+
     @Getter
     static class OrderDto{
 

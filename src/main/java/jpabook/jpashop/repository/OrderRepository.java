@@ -120,6 +120,24 @@ public class OrderRepository {
         ).getResultList();
     }
 
+    /**
+     * limit 100, offset 1 이 적용되지 않음
+     * Fetch join을 썼는데, 페이징 쿼리가 들어온 부분은 메모리에서 sort 처리한다고 표시됨
+     * out of memory 나올 수 있음
+     * @return
+     */
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                   " join fetch o.member m" +
+                   " join fetch o.delivery d" +
+                   " join fetch o.orderItems oi" +
+                   " join fetch oi.item i", Order.class)
+                .setFirstResult(1)
+                .setMaxResults(100)
+                .getResultList();
+    }
+
 
     /**
      * Query DSL 로 작성해야 함
