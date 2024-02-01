@@ -87,6 +87,16 @@ public class OrderApiController {
         return orderQueryRepository.findOrderQueryDtos();
     }
 
+
+    /**
+     * Query 루트 1번, 컬렉션 1번
+     * @return
+     */
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> ordersV5() {
+        return orderQueryRepository.findAllByDto_optimization();
+    }
+
     @Getter
     static class OrderDto{
 
